@@ -20,14 +20,12 @@ data = data.reindex(range(0,n),fill_value=0)
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata = data.reset_index()
-print(mydata)
-mydata = mydata[mydata.wstatus=='Employed persons']
-mydata = mydata[mydata.sex=='Total']
-mydata = mydata[mydata.age=='From 20 to 64 years']
-mydata = mydata[mydata.frequenc=='Usually']
-mydata = mydata[['geo','time',0]]
+mydata = mydata[mydata.nrg_bal=='Renewable energy sources in electricity']
+mydata = mydata[mydata.time==2022]
+mydata = mydata[['geo',0]]
 mydata.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata.rename(columns={0:'percentage'},inplace=True)
+print(mydata)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
