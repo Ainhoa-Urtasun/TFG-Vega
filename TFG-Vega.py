@@ -15,6 +15,7 @@ print(metadata['label'])
 data = pandas.Series(metadata['value']).rename(index=int).sort_index()
 print(data)
 n = 1 # Initialize the result to 1
+print(metadata['size'])
 for num in metadata['size']:
   n *= num
 data = data.reindex(range(0,n))
