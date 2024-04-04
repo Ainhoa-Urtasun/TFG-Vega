@@ -21,8 +21,8 @@ structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata = data.reset_index()
 print(mydata)
-mydata = mydata[mydata['nrg_bal']=='Renewable energy sources']
-mydata = mydata[mydata.geo=='Spain']
+mydata = mydata[mydata['siec']=='Total']
+mydata = mydata[mydata.Time=='2022']
 print(mydata)
 mydata = mydata[['geo',0]]
 mydata.rename(columns={'geo':'ADMIN'},inplace=True)
