@@ -21,7 +21,7 @@ structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata = data.reset_index()
 mydata = mydata[mydata['nrg_bal']=='Renewable energy sources in electricity']
-mydata = mydata[mydata.time=='2022']
+mydata = mydata[mydata.time=='2021']
 mydata = mydata[['geo',0]]
 mydata.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata.rename(columns={0:'percentage'},inplace=True)
@@ -31,7 +31,7 @@ world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[[
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
 europe = geopandas.clip(world,polygon)
 
-mydata1 = mydata[mydata.time==2022]
+mydata1 = mydata[mydata.time=='2021']
 table = mydata.pivot(index='ADMIN',columns='time',values=['percentage']).reset_index()
 table.columns = table.columns.droplevel(level=0)
 table.rename(columns={'ADMIN':'GEO'},inplace=True)
