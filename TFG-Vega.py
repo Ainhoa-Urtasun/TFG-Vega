@@ -22,6 +22,7 @@ data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata = data.reset_index()
 mydata = mydata[mydata['nrg_bal']=='Renewable energy sources']
 mydata = mydata[mydata.time=='2021']
+print(mydata)
 mydata = mydata[['geo',0]]
 mydata.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata.rename(columns={0:'percentage'},inplace=True)
