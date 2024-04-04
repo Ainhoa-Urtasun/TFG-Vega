@@ -9,19 +9,15 @@ import warnings
 warnings.filterwarnings("ignore")
 
 fixed = 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/'
-url = '{}{}'.format(fixed,'sdg_07_30')
+url = '{}{}'.format(fixed,'sdg_07_50')
 metadata = requests.get(url).json()
 print(metadata['label'])
 data = pandas.Series(metadata['value']).rename(index=int).sort_index()
-print(data)
 n = 1 # Initialize the result to 1
-print(metadata['size'])
 for num in metadata['size']:
   n *= num
 data = data.reindex(range(0,n))
-print(data)
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
-print(structure)
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata = data.reset_index()
 print(mydata)
