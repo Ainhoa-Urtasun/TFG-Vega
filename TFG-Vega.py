@@ -22,7 +22,7 @@ data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata = data.reset_index()
 print(mydata)
 mydata = mydata[mydata['siec']=='Total']
-mydata = mydata[mydata.Time=='2022']
+mydata = mydata[mydata.time=='2022']
 print(mydata)
 mydata = mydata[['geo',0]]
 mydata.rename(columns={'geo':'ADMIN'},inplace=True)
