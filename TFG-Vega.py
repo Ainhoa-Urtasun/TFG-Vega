@@ -34,7 +34,7 @@ polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
 europe = geopandas.clip(world,polygon)
 
 mydata = mydata.merge(europe,on='ADMIN',how='right')
-mydata1 = geopandas.GeoDataFrame(mydata1,geometry='geometry')
+mydata = geopandas.GeoDataFrame(mydata,geometry='geometry')
 fig,ax = plt.subplots(1,figsize=(10,10))
 mydata1.plot(column='percentage',alpha=0.8,cmap='viridis',ax=ax,legend=True)
 ax.set_title('Trabajadores entre 20 y 64 años que normalmente teletrabajan\ncomo porcentage del total de empleo. Año 2022 (Fuente: Eurostat)')
