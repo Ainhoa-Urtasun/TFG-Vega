@@ -11,7 +11,6 @@ warnings.filterwarnings("ignore")
 fixed = 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/'
 url = '{}{}'.format(fixed,'sdg_07_40')
 metadata = requests.get(url).json()
-print(metadata)
 print(metadata['label'])
 data = pandas.Series(metadata['value']).rename(index=int).sort_index()
 print(data)
