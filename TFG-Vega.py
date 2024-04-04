@@ -9,7 +9,7 @@ import warnings
 warnings.filterwarnings("ignore")
 
 fixed = 'https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/'
-url = '{}{}'.format(fixed,'lfsa_ehomp')
+url = '{}{}'.format(fixed,'sdg_07_40')
 metadata = requests.get(url).json()
 print(metadata['label'])
 data = pandas.Series(metadata['value']).rename(index=int).sort_index()
@@ -20,6 +20,7 @@ data = data.reindex(range(0,n),fill_value=0)
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata = data.reset_index()
+print(mydata)
 mydata = mydata[mydata.wstatus=='Employed persons']
 mydata = mydata[mydata.sex=='Total']
 mydata = mydata[mydata.age=='From 20 to 64 years']
