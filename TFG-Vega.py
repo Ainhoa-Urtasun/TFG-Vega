@@ -59,6 +59,6 @@ mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={0:'Job satisfaction'},inplace=True)
 
-mydata = mydata1.merge(mydata2,on='ADMIN',how='left)
+mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
 print(mydata)
 
