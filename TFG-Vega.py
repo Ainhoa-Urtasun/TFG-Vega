@@ -54,6 +54,7 @@ mydata2 = mydata2[mydata2['indic_wb'] == 'Overall life satisfaction']
 mydata2 = mydata2[mydata2['sex'] == 'Total']
 mydata2 = mydata2[mydata2['age'] == '16 years or over']
 mydata2 = mydata2[mydata2['time'] == '2022']
+mydata2.dropna(subset=[0], inplace=True)
 print(mydata2)
 mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
