@@ -49,12 +49,12 @@ data = data.reindex(range(0,n),fill_value=0)
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata2 = data.reset_index()
+print(mydata2)
 mydata2['isced11'] == 'All ISCED 2011 levels'
 mydata2['indic_wb'] == 'Overall life satisfaction'
 mydata2['sex'] == 'Total'
 mydata2['age'] == '16 years or over'
 mydata2['time'] == '2022'
-print(mydata2)
 mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={0:'Job satisfaction'},inplace=True)
