@@ -19,24 +19,38 @@ for num in metadata['size']:
 data = data.reindex(range(0,n),fill_value=0)
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
-mydata = data.reset_index()
-print(mydata)
-mydata = mydata[mydata['siec']=='Total']
-mydata = mydata[mydata.time=='2022']
-print(mydata)
-mydata = mydata[['geo',0]]
-mydata.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata.rename(columns={0:'percentage'},inplace=True)
-print(mydata)
+mydata1 = data.reset_index()
+print(mydata1)
+mydata1 = mydata1[mydata1['siec']=='Total']
+mydata1 = mydata1[mydata1.time=='2022']
+print(mydata1)
+mydata1 = mydata1[['geo',0]]
+mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
+mydata1.rename(columns={0:'percentage'},inplace=True)
+print(mydata1)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
 europe = geopandas.clip(world,polygon)
 
-mydata = mydata.merge(europe,on='ADMIN',how='right')
-mydata = geopandas.GeoDataFrame(mydata,geometry='geometry')
+mydata1 = mydata1.merge(europe,on='ADMIN',how='right')
+mydata1 = geopandas.GeoDataFrame(mydata1,geometry='geometry')
 fig,ax = plt.subplots(1,figsize=(10,10))
-mydata.plot(column='percentage',alpha=0.8,cmap='viridis',ax=ax,legend=True)
-ax.set_title('Trabajadores entre 20 y 64 años que normalmente teletrabajan\ncomo porcentage del total de empleo. Año 2022 (Fuente: Eurostat)')
+mydata1.plot(column='percentage',alpha=0.8,cmap='viridis',ax=ax,legend=True)
+ax.set_title('Energy import dependency by product, 2022 (Fuente: Eurostat, online datacode: sdg_07_50)')
 ax.axis('off')
 fig.savefig('/content/TFG-Vega/Europe.png')
+
+url = '{}{}'.format(fixed,'ilc_pw05')
+metadata = requests.get(url).json()
+print(metadata['label'])
+data = pandas.Series(metadata['value']).rename(index=int).sort_index()
+n = 1 # Initialize the result to 1
+for num in metadata['size']:
+  n *= num
+data = data.reindex(range(0,n),fill_value=0)
+structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
+data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
+mydata2 = data.reset_index()
+print(mydata2)
+
