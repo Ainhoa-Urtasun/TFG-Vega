@@ -16,12 +16,13 @@ data = pandas.Series(metadata['value']).rename(index=int).sort_index()
 n = 1 # Initialize the result to 1
 for num in metadata['size']:
   n *= num
-data = data.reindex(range(0,n),fill_value=0)
+data = data.reindex(range(0,n))
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata1 = data.reset_index()
 mydata1 = mydata1[mydata1['siec']=='Total']
 mydata1 = mydata1[mydata1.time=='2022']
+mydata1.dropna(subset=[0],inplace=True)
 mydata1 = mydata1[['geo',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata1.rename(columns={0:'Energy'},inplace=True)
