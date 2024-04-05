@@ -60,6 +60,8 @@ mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={0:'Overall life satisfaction'},inplace=True)
 mydata2.dropna(subset=['Overall life satisfaction'], inplace=True)
+mydata2 = mydata2.merge(europe,on='ADMIN',how='right')
+mydata2.dropna(subset=['Overall life satisfaction'],inplace=True)
 
 print(mydata1)
 print(mydata2)
