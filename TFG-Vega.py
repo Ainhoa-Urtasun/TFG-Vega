@@ -56,12 +56,12 @@ mydata2 = mydata2[mydata2['sex'] == 'Total']
 mydata2 = mydata2[mydata2['age'] == '16 years or over']
 mydata2 = mydata2[mydata2['time'] == '2022']
 mydata2.dropna(subset=[0], inplace=True)
-print(mydata2)
 mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={0:'Overall life satisfaction'},inplace=True)
-print(mydata2)
 
+print(mydata1)
+print(mydata2)
 mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
 mydata = mydata[['ADMIN','Overall life satisfaction','Energy']]
 print(mydata)
