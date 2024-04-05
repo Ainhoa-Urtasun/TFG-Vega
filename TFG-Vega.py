@@ -38,7 +38,7 @@ ax.set_title('Energy import dependency by product, 2022 (Fuente: Eurostat, onlin
 ax.axis('off')
 fig.savefig('/content/TFG-Vega/Europe.png')
 
-url = '{}{}'.format(fixed,'ilc_pw05')
+url = '{}{}'.format(fixed,'ilc_pw01')
 metadata = requests.get(url).json()
 print(metadata['label'])
 data = pandas.Series(metadata['value']).rename(index=int).sort_index()
@@ -50,8 +50,8 @@ structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata2 = data.reset_index()
 mydata2['lev_satis'] == 'High'
-mydata2['isced11'] == 'All ISCED 2011 levelsgh'
-mydata2['indic_wb'] == 'Job satisfaction'
+mydata2['isced11'] == 'All ISCED 2011 levels'
+mydata2['indic_wb'] == 'Overall life satisfaction'
 mydata2['sex'] == 'Total'
 mydata2['age'] == '16 years or over'
 mydata2['time'] == '2022'
