@@ -24,7 +24,7 @@ mydata1 = mydata1[mydata1['siec']=='Total']
 mydata1 = mydata1[mydata1.time=='2022']
 mydata1 = mydata1[['geo',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata1.rename(columns={0:'percentage'},inplace=True)
+mydata1.rename(columns={0:'Energy'},inplace=True)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
@@ -57,7 +57,8 @@ mydata2['age'] == '16 years or over'
 mydata2['time'] == '2022'
 mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata2.rename(columns={0:'percentage'},inplace=True)
+mydata2.rename(columns={0:'Job satisfaction'},inplace=True)
 
-print(mydata2)
+mydata = mydata1.merge(mydata2,on='ADMIN',how='left)
+print(mydata)
 
