@@ -20,14 +20,11 @@ data = data.reindex(range(0,n),fill_value=0)
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata1 = data.reset_index()
-print(mydata1)
 mydata1 = mydata1[mydata1['siec']=='Total']
 mydata1 = mydata1[mydata1.time=='2022']
-print(mydata1)
 mydata1 = mydata1[['geo',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata1.rename(columns={0:'percentage'},inplace=True)
-print(mydata1)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
@@ -58,5 +55,9 @@ mydata2['indic_wb'] == 'Job satisfaction'
 mydata2['sex'] == 'Total'
 mydata2['age'] == '16 years or over'
 mydata2['time'] == '2022'
+mydata2 = mydata2[['geo',0]]
+mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
+mydata2.rename(columns={0:'percentage'},inplace=True)
+
 print(mydata2)
 
