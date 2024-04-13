@@ -70,7 +70,7 @@ mydata1 = mydata1.merge(europe,on='ADMIN',how='right')
 mydata1 = geopandas.GeoDataFrame(mydata1,geometry='geometry')
 fig,ax = plt.subplots(1,figsize=(10,10))
 mydata1.plot(column='Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
-ax.set_title('Renewable sources from electricity, 2022')
+ax.set_title('Renewable energy sources in electricity, 2022')
 ax.axis('off')
 fig.savefig('/content/TFG-Vega/Figure1.png')
 
