@@ -136,5 +136,5 @@ for i in range(len(x)):
 
 # Add colorbar
 plt.colorbar(scalar_mappable, label='Renewable Energy')
-
+plt.show()
 
