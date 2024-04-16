@@ -81,7 +81,6 @@ mydata3 = mydata3[['geo','time',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata3.rename(columns={'time':'Year'},inplace=True)
 mydata3.rename(columns={0:'Fatal Accidents'},inplace=True)
-print(mydata3)
 
 url = '{}{}'.format(fixed,'sdg_08_30a')
 metadata = requests.get(url).json()
@@ -100,7 +99,7 @@ mydata4 = mydata4[['geo','time',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata4.rename(columns={'time':'Year'},inplace=True)
 mydata4.rename(columns={0:'Employment Rate'},inplace=True)
-
+print(mydata4)
 mydata = mydata1.merge(mydata2,on=['ADMIN','Year'],how='left')
 mydata = mydata.merge(mydata3,on=['ADMIN','Year'],how='left')
 mydata = mydata.merge(mydata4,on=['ADMIN','Year'],how='left')
