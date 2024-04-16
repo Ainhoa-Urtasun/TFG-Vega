@@ -119,11 +119,11 @@ x = mydata.loc[mydata.Year=='2021','Fatal Accidents']
 y = mydata.loc[mydata.Year=='2021','Overall Life Satisfaction']
 z = mydata.loc[mydata.Year=='2021','Renewable Energy']
 country = mydata.loc[mydata.Year=='2021','ADMIN']
-print(country)
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
 norm = Normalize(vmin=z.min(), vmax=z.max())
+print(norm)
 
 # Create a ScalarMappable object to map scalar data to colors
 scalar_mappable = ScalarMappable(cmap=cmap, norm=norm)
