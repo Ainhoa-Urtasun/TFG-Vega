@@ -21,7 +21,7 @@ structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata1 = data.reset_index()
 mydata1 = mydata1[mydata1['nrg_bal']=='Renewable energy sources in electricity']
-mydata1 = mydata1[mydata1.time=='2022']
+mydata1 = mydata1[(mydata1.time=='2022')|(mydata1.time=='2021')|(mydata1.time=='2020')]
 mydata1 = mydata1[['geo',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata1.rename(columns={0:'Renewable Energy'},inplace=True)
@@ -41,7 +41,7 @@ mydata2 = mydata2[mydata2['isced11'] == 'All ISCED 2011 levels']
 mydata2 = mydata2[mydata2['indic_wb'] == 'Overall life satisfaction']
 mydata2 = mydata2[mydata2['sex'] == 'Total']
 mydata2 = mydata2[mydata2['age'] == '16 years or over']
-mydata2 = mydata2[mydata2['time'] == '2022']
+mydata2 = mydata2[(mydata2.time=='2022')|(mydata2.time=='2021')|(mydata2.time=='2020')]
 mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={0:'Overall Life Satisfaction'},inplace=True)
@@ -58,7 +58,7 @@ structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata3 = data.reset_index()
 mydata3 = mydata3[mydata3['sex'] == 'Total']
-mydata3 = mydata3[mydata3['time'] == '2021']
+mydata3 = mydata3[(mydata3.time=='2021')|(mydata3.time=='2020')]
 mydata3 = mydata3[['geo',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata3.rename(columns={0:'Fatal Accidents'},inplace=True)
@@ -75,30 +75,31 @@ structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata4 = data.reset_index()
 mydata4 = mydata4[mydata4['citizen'] == 'Reporting country']
-mydata4 = mydata4[mydata4['time'] == '2022']
+mydata4 = mydata4[(mydata4.time=='2022')|(mydata4.time=='2021')|(mydata4.time=='2020')]
 mydata4 = mydata4[['geo',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata4.rename(columns={0:'Employment Rate'},inplace=True)
 
-world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
-polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
-europe = geopandas.clip(world,polygon)
-mydata1 = mydata1.merge(europe,on='ADMIN',how='right')
-mydata1 = geopandas.GeoDataFrame(mydata1,geometry='geometry')
-fig,ax = plt.subplots(1,figsize=(10,10))
-mydata1.plot(column='Renewable Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
-ax.set_title('Renewable energy sources in electricity, 2022')
-ax.axis('off')
-fig.savefig('/content/TFG-Vega/Figure1.png')
-
 mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
 mydata = mydata.merge(mydata3,on='ADMIN',how='left')
 mydata = mydata.merge(mydata4,on='ADMIN',how='left')
-mydata = mydata[['ADMIN','Overall Life Satisfaction','Renewable Energy','Fatal Accidents','Employment Rate']]
+mydata = mydata[['ADMIN','time','Overall Life Satisfaction','Renewable Energy','Fatal Accidents','Employment Rate']]
 mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
 data = mydata
+
+world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
+polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
+europe = geopandas.clip(world,polygon)
+mapdata = mydata.loc[mydata1.time=='2022','Renewable Energy']
+mapdata = mapdata.merge(europe,on='ADMIN',how='right')
+mapdata = geopandas.GeoDataFrame(mydata1,geometry='geometry')
+fig,ax = plt.subplots(1,figsize=(10,10))
+mapdata.plot(column='Renewable Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
+ax.set_title('Renewable energy sources in electricity, 2022')
+ax.axis('off')
+fig.savefig('/content/TFG-Vega/Figure1.png')
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -106,10 +107,10 @@ from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 
 # Assuming 'mydata' is your DataFrame and it's already been defined
-x = mydata['Fatal Accidents']
-y = mydata['Overall Life Satisfaction']
-z = mydata['Renewable Energy']
-country = mydata['ADMIN']
+x = mydata.loc[mydata.time=='2022','Fatal Accidents']
+y = mydata.loc[mydata.time=='2022',Overall Life Satisfaction']
+z = mydata.loc[mydata.time=='2022','Renewable Energy']
+country = mydata.loc[mydata.time=='2022,'ADMIN']
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
