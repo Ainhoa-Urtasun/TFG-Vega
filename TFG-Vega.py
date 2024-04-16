@@ -123,10 +123,10 @@ country = mydata.loc[mydata.Year=='2021','ADMIN']
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
 norm = Normalize(vmin=z.min(), vmax=z.max())
-print(norm)
 
 # Create a ScalarMappable object to map scalar data to colors
 scalar_mappable = ScalarMappable(cmap=cmap, norm=norm)
+print(scalar_mappable)
 
 # Plot the scatter plot with varying marker sizes and colors
 plt.figure(figsize=(25,10))
@@ -136,6 +136,7 @@ for i in range(len(x)):
 
 # Add colorbar
 plt.colorbar(scalar_mappable, label='Renewable Energy')
+print('hello')
 
 # Set labels and title
 plt.xlabel('Fatal Accidents At Work, 2021')
