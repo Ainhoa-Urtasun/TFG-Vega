@@ -125,9 +125,9 @@ plt.figure(figsize=(25,10))
 for i in range(len(x)):
     plt.scatter(x[i], y[i], s=z[i]*100, color=scalar_mappable.to_rgba(z[i]), alpha=0.75, edgecolor='w')
     plt.annotate(country[i], (x[i], y[i]), textcoords="offset points", xytext=(0, 10), ha='center')
-plt.colorbar(scalar_mappable, label='Renewable Energy')
-plt.xlabel('Fatal Accidents at Work')
-plt.ylabel('Overall Life Satisfaction')
+plt.colorbar(scalar_mappable, label='Renewable Energy, 2021')
+plt.xlabel('Fatal Accidents at Work, 2021')
+plt.ylabel('Overall Life Satisfaction, 2021')
 
 fig.savefig('/content/TFG-Vega/Figure2.png')
 
