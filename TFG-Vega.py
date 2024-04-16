@@ -94,7 +94,7 @@ polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
 europe = geopandas.clip(world,polygon)
 mapdata = mydata.loc[mydata1.time=='2022','Renewable Energy']
 mapdata = mapdata.merge(europe,on='ADMIN',how='right')
-mapdata = geopandas.GeoDataFrame(mydata1,geometry='geometry')
+mapdata = geopandas.GeoDataFrame(mapdata,geometry='geometry')
 fig,ax = plt.subplots(1,figsize=(10,10))
 mapdata.plot(column='Renewable Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
 ax.set_title('Renewable energy sources in electricity, 2022')
