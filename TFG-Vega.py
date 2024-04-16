@@ -22,7 +22,7 @@ data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata1 = data.reset_index()
 mydata1 = mydata1[mydata1['nrg_bal']=='Renewable energy sources in electricity']
 mydata1 = mydata1[(mydata1.time=='2022')|(mydata1.time=='2021')|(mydata1.time=='2020')]
-mydata1 = mydata1[['geo',0]]
+mydata1 = mydata1[['geo','time',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata1.rename(columns={0:'Renewable Energy'},inplace=True)
 
@@ -42,7 +42,7 @@ mydata2 = mydata2[mydata2['indic_wb'] == 'Overall life satisfaction']
 mydata2 = mydata2[mydata2['sex'] == 'Total']
 mydata2 = mydata2[mydata2['age'] == '16 years or over']
 mydata2 = mydata2[(mydata2.time=='2022')|(mydata2.time=='2021')|(mydata2.time=='2020')]
-mydata2 = mydata2[['geo',0]]
+mydata2 = mydata2[['geo','time',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={0:'Overall Life Satisfaction'},inplace=True)
 
@@ -59,7 +59,7 @@ data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata3 = data.reset_index()
 mydata3 = mydata3[mydata3['sex'] == 'Total']
 mydata3 = mydata3[(mydata3.time=='2021')|(mydata3.time=='2020')]
-mydata3 = mydata3[['geo',0]]
+mydata3 = mydata3[['geo','time',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata3.rename(columns={0:'Fatal Accidents'},inplace=True)
 
@@ -76,7 +76,7 @@ data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata4 = data.reset_index()
 mydata4 = mydata4[mydata4['citizen'] == 'Reporting country']
 mydata4 = mydata4[(mydata4.time=='2022')|(mydata4.time=='2021')|(mydata4.time=='2020')]
-mydata4 = mydata4[['geo',0]]
+mydata4 = mydata4[['geo','time',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata4.rename(columns={0:'Employment Rate'},inplace=True)
 
