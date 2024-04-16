@@ -57,7 +57,7 @@ mydata2 = mydata2[mydata2['isced11'] == 'All ISCED 2011 levels']
 mydata2 = mydata2[mydata2['indic_wb'] == 'Overall life satisfaction']
 mydata2 = mydata2[mydata2['sex'] == 'Total']
 mydata2 = mydata2[mydata2['age'] == '16 years or over']
-mydata2 = mydata2[(mydata2.time=='2021')|(mydata2.time=='2020')|(mydata2.time=='2017')]
+mydata2 = mydata2[(mydata2.time=='2022')|(mydata2.time=='2021')|(mydata2.time=='2018')]
 mydata2 = mydata2[['geo','time',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={'time':'Year'},inplace=True)
@@ -119,7 +119,7 @@ from matplotlib.cm import ScalarMappable
 
 # Assuming 'mydata' is your DataFrame and it's already been defined
 x = mydata.loc[mydata.Year=='2021','Fatal Accidents']
-y = mydata.loc[mydata.Year=='2021','Overall Life Satisfaction']
+y = mydata.loc[mydata.Year=='2022','Overall Life Satisfaction']
 z = mydata.loc[mydata.Year=='2021','Renewable Energy']
 country = mydata.loc[mydata.Year=='2021','ADMIN']
 
@@ -141,8 +141,8 @@ plt.colorbar(scalar_mappable, label='Renewable Energy')
 
 # Set labels and title
 plt.xlabel('Fatal Accidents At Work, 2021')
-plt.ylabel('Overall Life Satisfaction, 2021')
-plt.title('Scatter Plot with Energy Color Mapping')
+plt.ylabel('Overall Life Satisfaction, 2022')
+plt.title('Scatter Plot with Renewable Energy in Electricity Color Mapping')
 
 # Adjusting plot limits and margins
 plt.margins(0.15)
