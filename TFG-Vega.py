@@ -31,7 +31,7 @@ print(mydata1)
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
 europe = geopandas.clip(world,polygon)
-mapdata = mydata.loc[mydata1.time=='2022','Renewable Energy']
+mapdata = mydata1[mydata1.time=='2022']
 mapdata = mapdata.merge(europe,on='ADMIN',how='right')
 countries = mapdata.ADMIN.unique()
 mapdata = geopandas.GeoDataFrame(mapdata,geometry='geometry')
