@@ -100,10 +100,10 @@ mydata4.rename(columns={'time':'Year'},inplace=True)
 mydata4.rename(columns={0:'Employment Rate'},inplace=True)
 print(mydata4)
 
-mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
-mydata = mydata.merge(mydata3,on='ADMIN',how='left')
-mydata = mydata.merge(mydata4,on='ADMIN',how='left')
-mydata = mydata[['ADMIN','time','Overall Life Satisfaction','Renewable Energy','Fatal Accidents','Employment Rate']]
+mydata = mydata1.merge(mydata2,on=['ADMIN','Year'],how='left')
+mydata = mydata.merge(mydata3,on=['ADMIN','Year'],how='left')
+mydata = mydata.merge(mydata4,on=['ADMIN','Year'],how='left')
+mydata = mydata[['ADMIN','Year','Overall Life Satisfaction','Renewable Energy','Fatal Accidents','Employment Rate']]
 mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
@@ -116,10 +116,10 @@ from matplotlib.cm import ScalarMappable
 
 # Assuming 'mydata' is your DataFrame and it's already been defined
 print(mydata)
-x = mydata.loc[mydata.time=='2022','Fatal Accidents']
-y = mydata.loc[mydata.time=='2022','Overall Life Satisfaction']
-z = mydata.loc[mydata.time=='2022','Renewable Energy']
-#country = mydata.loc[mydata.time=='2022,'ADMIN']
+x = mydata.loc[mydata.Year=='2022','Fatal Accidents']
+y = mydata.loc[mydata.Year=='2022','Overall Life Satisfaction']
+z = mydata.loc[mydata.Year=='2022','Renewable Energy']
+country = mydata.loc[mydata.Year=='2022,'ADMIN']
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
