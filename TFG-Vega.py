@@ -113,29 +113,21 @@ import matplotlib.pyplot as plt
 import numpy as np
 from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
-
-# Assuming 'mydata' is your DataFrame and it's already been defined
 mydata = mydata[mydata.Year=='2021']
 x = mydata['Fatal Accidents'].tolist()
 y = mydata['Overall Life Satisfaction'].tolist()
 z = mydata['Renewable Energy'].tolist()
 country = mydata['ADMIN'].tolist()
-
-# Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
 norm = Normalize(vmin=min(z), vmax=max(z))
-
-# Create a ScalarMappable object to map scalar data to colors
 scalar_mappable = ScalarMappable(cmap=cmap, norm=norm)
-
-# Plot the scatter plot with varying marker sizes and colors
 plt.figure(figsize=(25,10))
 for i in range(len(x)):
     plt.scatter(x[i], y[i], s=z[i]*100, color=scalar_mappable.to_rgba(z[i]), alpha=0.75, edgecolor='w')
     plt.annotate(country[i], (x[i], y[i]), textcoords="offset points", xytext=(0, 10), ha='center')
-
-# Add colorbar
 plt.colorbar(scalar_mappable, label='Renewable Energy')
+plt.xlabel('Fatal Accidents at Work')
+plt.ylabel('Overall Life Satisfaction')
 
 fig.savefig('/content/TFG-Vega/Figure2.png')
 
