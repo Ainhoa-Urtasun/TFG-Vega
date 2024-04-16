@@ -63,7 +63,6 @@ mydata2 = mydata2[['geo','time',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={'time':'Year'},inplace=True)
 mydata2.rename(columns={0:'Overall Life Satisfaction'},inplace=True)
-print(mydata2)
 
 url = '{}{}'.format(fixed,'sdg_08_60')
 metadata = requests.get(url).json()
@@ -82,6 +81,7 @@ mydata3 = mydata3[['geo','time',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata3.rename(columns={'time':'Year'},inplace=True)
 mydata3.rename(columns={0:'Fatal Accidents'},inplace=True)
+print(mydata3)
 
 url = '{}{}'.format(fixed,'sdg_08_30a')
 metadata = requests.get(url).json()
