@@ -77,7 +77,7 @@ mydata4 = data.reset_index()
 mydata4 = mydata4[mydata4['time'] == '2022']
 mydata4 = mydata4[['geo',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata4.rename(columns={0:'Employment Eate'},inplace=True)
+mydata4.rename(columns={0:'Employment Rate'},inplace=True)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
@@ -93,7 +93,7 @@ fig.savefig('/content/TFG-Vega/Figure1.png')
 mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
 mydata = mydata.merge(mydata3,on='ADMIN',how='left')
 mydata = mydata.merge(mydata4,on='ADMIN',how='left')
-mydata = mydata[['ADMIN','Overall Life satisfaction','Renewable Energy','Fatal Accidents','Employment Rate']]
+mydata = mydata[['ADMIN','Overall Life Satisfaction','Renewable Energy','Fatal Accidents','Employment Rate']]
 mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
@@ -112,7 +112,7 @@ country = mydata['ADMIN']
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
-norm = Normalize(vmin=mydata['Energy'].min(), vmax=mydata['Energy'].max())
+norm = Normalize(vmin=z.min(), vmax=z.max())
 
 # Create a ScalarMappable object to map scalar data to colors
 scalar_mappable = ScalarMappable(cmap=cmap, norm=norm)
@@ -124,11 +124,11 @@ for i in range(len(x)):
     plt.annotate(country[i], (x[i], y[i]), textcoords="offset points", xytext=(0, 10), ha='center')
 
 # Add colorbar
-plt.colorbar(scalar_mappable, label='Energy')
+plt.colorbar(scalar_mappable, label='Renewable Energy')
 
 # Set labels and title
-plt.xlabel('Fatal accidents')
-plt.ylabel('Overall life satisfaction')
+plt.xlabel('Fatal Accidents At Work')
+plt.ylabel('Overall Life Satisfaction')
 plt.title('Scatter Plot with Energy Color Mapping')
 
 # Adjusting plot limits and margins
