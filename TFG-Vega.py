@@ -111,7 +111,7 @@ print(mydata)
 x = mydata.loc[mydata.time=='2022','Fatal Accidents']
 y = mydata.loc[mydata.time=='2022','Overall Life Satisfaction']
 z = mydata.loc[mydata.time=='2022','Renewable Energy']
-country = mydata.loc[mydata.time=='2022,'ADMIN']
+#country = mydata.loc[mydata.time=='2022,'ADMIN']
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
