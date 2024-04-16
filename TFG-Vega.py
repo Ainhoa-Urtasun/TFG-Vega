@@ -58,6 +58,9 @@ mydata2 = mydata2[mydata2['indic_wb'] == 'Overall life satisfaction']
 mydata2 = mydata2[mydata2['sex'] == 'Total']
 mydata2 = mydata2[mydata2['age'] == '16 years or over']
 mydata2 = mydata2[(mydata2.time=='2022')|(mydata2.time=='2021')|(mydata2.time=='2018')]
+mydata2.loc[mydata2.time=='2018','time'] = '2017'
+mydata2.loc[mydata2.time=='2021','time'] = '2020'
+mydata2.loc[mydata2.time=='2022','time'] = '2021'
 mydata2 = mydata2[['geo','time',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={'time':'Year'},inplace=True)
