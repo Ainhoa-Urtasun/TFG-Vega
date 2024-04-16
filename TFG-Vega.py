@@ -108,6 +108,7 @@ mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
 data = mydata
+print(data)
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -115,11 +116,10 @@ from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 
 # Assuming 'mydata' is your DataFrame and it's already been defined
-print(mydata)
 x = mydata.loc[mydata.Year=='2022','Fatal Accidents']
 y = mydata.loc[mydata.Year=='2022','Overall Life Satisfaction']
 z = mydata.loc[mydata.Year=='2022','Renewable Energy']
-country = mydata.loc[mydata.Year=='2022,'ADMIN']
+#country = mydata.loc[mydata.Year=='2022,'ADMIN']
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
