@@ -24,7 +24,9 @@ mydata1 = mydata1[mydata1['nrg_bal']=='Renewable energy sources in electricity']
 mydata1 = mydata1[(mydata1.time=='2022')|(mydata1.time=='2021')|(mydata1.time=='2020')]
 mydata1 = mydata1[['geo','time',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
+mydata1.rename(columns={'time':'Year'},inplace=True)
 mydata1.rename(columns={0:'Renewable Energy'},inplace=True)
+print(mydata1)
 
 url = '{}{}'.format(fixed,'ilc_pw01')
 metadata = requests.get(url).json()
@@ -44,7 +46,9 @@ mydata2 = mydata2[mydata2['age'] == '16 years or over']
 mydata2 = mydata2[(mydata2.time=='2022')|(mydata2.time=='2021')|(mydata2.time=='2020')]
 mydata2 = mydata2[['geo','time',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
+mydata2.rename(columns={'time':'Year'},inplace=True)
 mydata2.rename(columns={0:'Overall Life Satisfaction'},inplace=True)
+print(mydata2)
 
 url = '{}{}'.format(fixed,'sdg_08_60')
 metadata = requests.get(url).json()
@@ -61,7 +65,9 @@ mydata3 = mydata3[mydata3['sex'] == 'Total']
 mydata3 = mydata3[(mydata3.time=='2021')|(mydata3.time=='2020')]
 mydata3 = mydata3[['geo','time',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
+mydata3.rename(columns={'time':'Year'},inplace=True)
 mydata3.rename(columns={0:'Fatal Accidents'},inplace=True)
+print(mydata3)
 
 url = '{}{}'.format(fixed,'sdg_08_30a')
 metadata = requests.get(url).json()
@@ -78,7 +84,9 @@ mydata4 = mydata4[mydata4['citizen'] == 'Reporting country']
 mydata4 = mydata4[(mydata4.time=='2022')|(mydata4.time=='2021')|(mydata4.time=='2020')]
 mydata4 = mydata4[['geo','time',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
+mydata4.rename(columns={'time':'Year'},inplace=True)
 mydata4.rename(columns={0:'Employment Rate'},inplace=True)
+print(mydata4)
 
 mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
 mydata = mydata.merge(mydata3,on='ADMIN',how='left')
