@@ -26,7 +26,6 @@ mydata1 = mydata1[['geo','time',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata1.rename(columns={'time':'Year'},inplace=True)
 mydata1.rename(columns={0:'Renewable Energy'},inplace=True)
-print(mydata1)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
@@ -65,7 +64,6 @@ mydata2 = mydata2[['geo','time',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={'time':'Year'},inplace=True)
 mydata2.rename(columns={0:'Overall Life Satisfaction'},inplace=True)
-print(mydata2)
 
 url = '{}{}'.format(fixed,'sdg_08_60')
 metadata = requests.get(url).json()
@@ -84,7 +82,6 @@ mydata3 = mydata3[['geo','time',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata3.rename(columns={'time':'Year'},inplace=True)
 mydata3.rename(columns={0:'Fatal Accidents'},inplace=True)
-print(mydata3)
 
 url = '{}{}'.format(fixed,'sdg_08_30a')
 metadata = requests.get(url).json()
@@ -103,7 +100,6 @@ mydata4 = mydata4[['geo','time',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata4.rename(columns={'time':'Year'},inplace=True)
 mydata4.rename(columns={0:'Employment Rate'},inplace=True)
-print(mydata4)
 
 mydata = mydata1.merge(mydata2,on=['ADMIN','Year'],how='left')
 mydata = mydata.merge(mydata3,on=['ADMIN','Year'],how='left')
@@ -113,7 +109,6 @@ mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
 data = mydata
-print(data)
 
 import matplotlib.pyplot as plt
 import numpy as np
