@@ -134,6 +134,7 @@ scalar_mappable = ScalarMappable(cmap=cmap, norm=norm)
 # Plot the scatter plot with varying marker sizes and colors
 plt.figure(figsize=(25,10))
 for i in range(len(x)):
+    print(i)
     plt.scatter(x[i], y[i], s=z[i]*100, color=scalar_mappable.to_rgba(z[i]), alpha=0.75, edgecolor='w')
     plt.annotate(country[i], (x[i], y[i]), textcoords="offset points", xytext=(0, 10), ha='center')
 
