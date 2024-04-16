@@ -108,7 +108,6 @@ mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
 data = mydata
-print(data)
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -120,6 +119,7 @@ x = mydata.loc[mydata.Year=='2021','Fatal Accidents']
 y = mydata.loc[mydata.Year=='2021','Overall Life Satisfaction']
 z = mydata.loc[mydata.Year=='2021','Renewable Energy']
 country = mydata.loc[mydata.Year=='2021','ADMIN']
+print(country)
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
