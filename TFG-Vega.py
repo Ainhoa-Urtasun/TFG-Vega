@@ -28,6 +28,19 @@ mydata1.rename(columns={'time':'Year'},inplace=True)
 mydata1.rename(columns={0:'Renewable Energy'},inplace=True)
 print(mydata1)
 
+world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
+polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
+europe = geopandas.clip(world,polygon)
+mapdata = mydata.loc[mydata1.time=='2022','Renewable Energy']
+mapdata = mapdata.merge(europe,on='ADMIN',how='right')
+countries = mapdata.ADMIN.unique()
+mapdata = geopandas.GeoDataFrame(mapdata,geometry='geometry')
+fig,ax = plt.subplots(1,figsize=(10,10))
+mapdata.plot(column='Renewable Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
+ax.set_title('Renewable energy sources in electricity, 2022')
+ax.axis('off')
+fig.savefig('/content/TFG-Vega/Figure1.png')
+
 url = '{}{}'.format(fixed,'ilc_pw01')
 metadata = requests.get(url).json()
 print(metadata['label'])
@@ -44,6 +57,7 @@ mydata2 = mydata2[mydata2['indic_wb'] == 'Overall life satisfaction']
 mydata2 = mydata2[mydata2['sex'] == 'Total']
 mydata2 = mydata2[mydata2['age'] == '16 years or over']
 mydata2 = mydata2[(mydata2.time=='2022')|(mydata2.time=='2021')|(mydata2.time=='2020')]
+mydata2 = mydata2[mydata2.ADMIN.isin(countries)]
 mydata2 = mydata2[['geo','time',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata2.rename(columns={'time':'Year'},inplace=True)
@@ -96,18 +110,6 @@ mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
 data = mydata
-
-world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
-polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
-europe = geopandas.clip(world,polygon)
-mapdata = mydata.loc[mydata1.time=='2022','Renewable Energy']
-mapdata = mapdata.merge(europe,on='ADMIN',how='right')
-mapdata = geopandas.GeoDataFrame(mapdata,geometry='geometry')
-fig,ax = plt.subplots(1,figsize=(10,10))
-mapdata.plot(column='Renewable Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
-ax.set_title('Renewable energy sources in electricity, 2022')
-ax.axis('off')
-fig.savefig('/content/TFG-Vega/Figure1.png')
 
 import matplotlib.pyplot as plt
 import numpy as np
