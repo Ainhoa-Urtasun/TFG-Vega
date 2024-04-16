@@ -136,5 +136,8 @@ for i in range(len(x)):
 
 # Add colorbar
 plt.colorbar(scalar_mappable, label='Renewable Energy')
+
+fig.savefig('/content/TFG-Vega/Figure2.png')
+
 plt.show()
 
