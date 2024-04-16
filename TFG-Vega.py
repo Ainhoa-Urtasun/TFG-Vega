@@ -24,7 +24,7 @@ mydata1 = mydata1[mydata1['nrg_bal']=='Renewable energy sources in electricity']
 mydata1 = mydata1[mydata1.time=='2022']
 mydata1 = mydata1[['geo',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata1.rename(columns={0:'Energy'},inplace=True)
+mydata1.rename(columns={0:'Renewable Energy'},inplace=True)
 
 url = '{}{}'.format(fixed,'ilc_pw01')
 metadata = requests.get(url).json()
@@ -44,7 +44,7 @@ mydata2 = mydata2[mydata2['age'] == '16 years or over']
 mydata2 = mydata2[mydata2['time'] == '2022']
 mydata2 = mydata2[['geo',0]]
 mydata2.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata2.rename(columns={0:'Overall life satisfaction'},inplace=True)
+mydata2.rename(columns={0:'Overall Life Satisfaction'},inplace=True)
 
 url = '{}{}'.format(fixed,'sdg_08_60')
 metadata = requests.get(url).json()
@@ -61,7 +61,7 @@ mydata3 = mydata3[mydata3['sex'] == 'Total']
 mydata3 = mydata3[mydata3['time'] == '2021']
 mydata3 = mydata3[['geo',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata3.rename(columns={0:'Fatal accidents'},inplace=True)
+mydata3.rename(columns={0:'Fatal Accidents'},inplace=True)
 
 url = '{}{}'.format(fixed,'sdg_08_30a')
 metadata = requests.get(url).json()
@@ -77,7 +77,7 @@ mydata4 = data.reset_index()
 mydata4 = mydata4[mydata4['time'] == '2022']
 mydata4 = mydata4[['geo',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
-mydata4.rename(columns={0:'Employment rate'},inplace=True)
+mydata4.rename(columns={0:'Employment Eate'},inplace=True)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
@@ -85,7 +85,7 @@ europe = geopandas.clip(world,polygon)
 mydata1 = mydata1.merge(europe,on='ADMIN',how='right')
 mydata1 = geopandas.GeoDataFrame(mydata1,geometry='geometry')
 fig,ax = plt.subplots(1,figsize=(10,10))
-mydata1.plot(column='Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
+mydata1.plot(column='Renewable Energy',alpha=0.8,cmap='Greens',ax=ax,legend=True)
 ax.set_title('Renewable energy sources in electricity, 2022')
 ax.axis('off')
 fig.savefig('/content/TFG-Vega/Figure1.png')
@@ -93,11 +93,11 @@ fig.savefig('/content/TFG-Vega/Figure1.png')
 mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
 mydata = mydata.merge(mydata3,on='ADMIN',how='left')
 mydata = mydata.merge(mydata4,on='ADMIN',how='left')
-mydata = mydata[['ADMIN','Overall life satisfaction','Energy','Fatal accidents','Employment rate']]
+mydata = mydata[['ADMIN','Overall Life satisfaction','Renewable Energy','Fatal Accidents','Employment Rate']]
 mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
-table = mydata
+data = mydata
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -105,9 +105,9 @@ from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 
 # Assuming 'mydata' is your DataFrame and it's already been defined
-x = mydata['Fatal accidents']
-y = mydata['Overall life satisfaction']
-z = mydata['Energy']
+x = mydata['Fatal Accidents']
+y = mydata['Overall Life Satisfaction']
+z = mydata['Renewable Energy']
 country = mydata['ADMIN']
 
 # Create a colormap and normalize it based on the 'Energy' column
