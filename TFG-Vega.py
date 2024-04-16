@@ -108,7 +108,7 @@ from matplotlib.cm import ScalarMappable
 
 # Assuming 'mydata' is your DataFrame and it's already been defined
 x = mydata.loc[mydata.time=='2022','Fatal Accidents']
-y = mydata.loc[mydata.time=='2022',Overall Life Satisfaction']
+y = mydata.loc[mydata.time=='2022','Overall Life Satisfaction']
 z = mydata.loc[mydata.time=='2022','Renewable Energy']
 country = mydata.loc[mydata.time=='2022,'ADMIN']
 
