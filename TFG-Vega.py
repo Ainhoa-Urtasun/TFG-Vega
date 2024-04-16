@@ -115,18 +115,15 @@ from matplotlib.colors import Normalize
 from matplotlib.cm import ScalarMappable
 
 # Assuming 'mydata' is your DataFrame and it's already been defined
-x = mydata.loc[mydata.Year=='2021','Fatal Accidents']
-print(x)
-y = mydata.loc[mydata.Year=='2021','Overall Life Satisfaction']
-print(y)
-z = mydata.loc[mydata.Year=='2021','Renewable Energy']
-print(z)
-country = mydata.loc[mydata.Year=='2021','ADMIN']
-print(country)
+mydata = mydata[mydata.Year=='2021']
+x = mydata['Fatal Accidents'].tolist()
+y = mydata['Overall Life Satisfaction'].tolist()
+z = mydata['Renewable Energy'].tolist()
+country = mydata['ADMIN'].tolist()
 
 # Create a colormap and normalize it based on the 'Energy' column
 cmap = plt.get_cmap('Greens')
-norm = Normalize(vmin=z.min(), vmax=z.max())
+norm = Normalize(vmin=min(z), vmax=max(z))
 
 # Create a ScalarMappable object to map scalar data to colors
 scalar_mappable = ScalarMappable(cmap=cmap, norm=norm)
@@ -134,24 +131,10 @@ scalar_mappable = ScalarMappable(cmap=cmap, norm=norm)
 # Plot the scatter plot with varying marker sizes and colors
 plt.figure(figsize=(25,10))
 for i in range(len(x)):
-    print(i)
     plt.scatter(x[i], y[i], s=z[i]*100, color=scalar_mappable.to_rgba(z[i]), alpha=0.75, edgecolor='w')
     plt.annotate(country[i], (x[i], y[i]), textcoords="offset points", xytext=(0, 10), ha='center')
 
 # Add colorbar
 plt.colorbar(scalar_mappable, label='Renewable Energy')
-
-# Set labels and title
-plt.xlabel('Fatal Accidents At Work, 2021')
-plt.ylabel('Overall Life Satisfaction, 2022')
-plt.title('Scatter Plot with Renewable Energy in Electricity in 2021 Color Mapping')
-
-# Adjusting plot limits and margins
-plt.margins(0.15)
-plt.grid(True)
-
-# Save and show the plot
-fig.savefig('/content/TFG-Vega/Figure2.png', dpi=300, bbox_inches='tight')
-plt.show()
 
 
