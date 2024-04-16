@@ -63,6 +63,22 @@ mydata3 = mydata3[['geo',0]]
 mydata3.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata3.rename(columns={0:'Fatal accidents'},inplace=True)
 
+url = '{}{}'.format(fixed,'sdg_08_30a')
+metadata = requests.get(url).json()
+print(metadata['label'])
+data = pandas.Series(metadata['value']).rename(index=int).sort_index()
+n = 1 # Initialize the result to 1
+for num in metadata['size']:
+  n *= num
+data = data.reindex(range(0,n))
+structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
+data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
+mydata4 = data.reset_index()
+mydata4 = mydata4[mydata4['time'] == '2022']
+mydata4 = mydata4[['geo',0]]
+mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
+mydata4.rename(columns={0:'Employment rate'},inplace=True)
+
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
 europe = geopandas.clip(world,polygon)
@@ -76,7 +92,8 @@ fig.savefig('/content/TFG-Vega/Figure1.png')
 
 mydata = mydata1.merge(mydata2,on='ADMIN',how='left')
 mydata = mydata.merge(mydata3,on='ADMIN',how='left')
-mydata = mydata[['ADMIN','Overall life satisfaction','Energy','Fatal accidents']]
+mydata = mydata.merge(mydata4,on='ADMIN',how='left')
+mydata = mydata[['ADMIN','Overall life satisfaction','Energy','Fatal accidents','Employment rate']]
 mydata = mydata[mydata['ADMIN']!='Bulgaria']
 mydata = mydata.dropna()
 mydata = mydata.reset_index()
