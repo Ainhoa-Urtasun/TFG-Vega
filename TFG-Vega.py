@@ -26,6 +26,7 @@ mydata1 = mydata1[['geo','time',0]]
 mydata1.rename(columns={'geo':'ADMIN'},inplace=True)
 mydata1.rename(columns={'time':'Year'},inplace=True)
 mydata1.rename(columns={0:'Renewable Energy'},inplace=True)
+print(mydata1)
 
 world = geopandas.read_file('/content/TFG-Vega/ne_110m_admin_0_countries.zip')[['ADMIN','geometry']]
 polygon = Polygon([(-25,35),(40,35),(40,75),(-25,75)])
