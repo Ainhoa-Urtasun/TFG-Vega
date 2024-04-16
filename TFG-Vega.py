@@ -74,8 +74,7 @@ data = data.reindex(range(0,n))
 structure = [pandas.DataFrame({key:val for key,val in metadata['dimension'][dim]['category'].items()}).sort_values('index')['label'].values for dim in metadata['id']]
 data.index = pandas.MultiIndex.from_product(structure,names=metadata['id'])
 mydata4 = data.reset_index()
-print(mydata4)
-# mydata4 = mydata4[mydata4['citizen'] == 'NAT']
+mydata4 = mydata4[mydata4['citizen'] == 'Reporting country']
 mydata4 = mydata4[mydata4['time'] == '2022']
 mydata4 = mydata4[['geo',0]]
 mydata4.rename(columns={'geo':'ADMIN'},inplace=True)
